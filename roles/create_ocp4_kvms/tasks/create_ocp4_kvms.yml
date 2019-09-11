@@ -1,0 +1,2 @@
+- name: run the bash script to create kvms
+  command: " /bin/sh {{ role_path }}/files/create_kvm.sh {{ libvirt_image_directory }} {{ kvm_network_name }}"

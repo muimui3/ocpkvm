@@ -1,0 +1,5 @@
+---
+# tasks file for create_ocp4_kvms
+
+- include: create_ocp4_kvms.yml
+- include: register_ocp4_kvms_mac_address.yml

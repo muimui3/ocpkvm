@@ -1,0 +1,5 @@
+
+
+
+#- name: get mac address for master0 node
+#  command: 'virsh dumpxml {{ocp4-worker-0}} | grep "mac address" | awk -F\' '{ print $2}''

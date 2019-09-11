@@ -94,7 +94,6 @@ kvm_vm_nics:
 
 
 kvm_timezone: "America/New_York"
-#vm_location: "/var/lib/libvirt/images"
 disk: vda
 
 helper:
@@ -123,25 +122,25 @@ bootstrap:
 
 
 masters:
-  - name: "control-plane-0"
+  - name: "ocp4-master-0"
     ipaddr: "{{ master_ip.0 }}"
     macaddr: "{{ hostvars['localhost']['master_mac_0']  }}"
-  - name: "control-plane-1"
+  - name: "ocp4-master-1"
     ipaddr: "{{ master_ip.1 }}"
     macaddr: "{{ hostvars['localhost']['master_mac_1']  }}"
-  - name: "control-plane-2"
+  - name: "ocp4-master-2"
     ipaddr: "{{ master_ip.2 }}"
     macaddr: "{{ hostvars['localhost']['master_mac_2'] }}"
 
 
 workers:
-  - name: "compute-0"
+  - name: "ocp4-worker-0"
     ipaddr: "{{ worker_ip.0 }}"
     macaddr: "{{ hostvars['localhost']['worker_mac_0'] }}"
-  - name: "compute-1"
+  - name: "ocp4-worker-1"
     ipaddr: "{{ worker_ip.1 }}"
     macaddr: "{{ hostvars['localhost']['worker_mac_1'] }}"
-  - name: "compute-2"
+  - name: "ocp4-worker-2"
     ipaddr: "{{ worker_ip.2 }}"
     macaddr: "{{ hostvars['localhost']['worker_mac_2'] }}"
 
