@@ -1,0 +1,79 @@
+---
+# tasks file for clean
+
+- name: delete tmp folder
+  command: "rm -rf /tmp/*"
+    
+    
+
+- name: delete kvm network
+  virt_net:
+    command: destroy
+    name: "{{  kvm_network_name}}"
+
+- name: undefine vm
+  virt:
+    command: destroy
+    name: "{{ kvm_vm_hostname }}"
+  ignore_errors: true
+
+
+- name: undefine vm
+  virt:
+    command: undefine
+    name: "{{ kvm_vm_hostname }}"
+  ignore_errors: true
+
+
+
+- name: undefine vm
+  virt:
+    command: undefine
+    name: ocp4-worker1
+  ignore_errors: true
+
+
+- name: undefine vm
+  virt:
+    command: undefine
+    name: ocp4-worker2
+  ignore_errors: true
+
+
+- name: define vm
+  virt:
+    command: undefine
+    name: ocp4-worker0
+  ignore_errors: true
+
+- name: undefine vm
+  virt:
+    command: undefine
+    name: ocp4-master1
+  ignore_errors: true
+
+- name: undefine vm
+  virt:
+    command: undefine
+    name: ocp4-master2
+  ignore_errors: true
+
+- name: undefine vm
+  virt:
+    command: undefine
+    name: ocp4-master0
+  ignore_errors: true
+
+- name: undefine vm
+  virt:
+    command: undefine
+    name: ocp4-bootstrap
+  ignore_errors: true
+
+
+- name: remove all images file
+  command: "rm -rf /var/lib/libvirt/images/*.img"
+
+
+- name: remove all qcow2 file
+  command: "rm -rf /var/lib/libvirt/images/*.qcow2"

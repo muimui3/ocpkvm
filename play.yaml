@@ -1,0 +1,10 @@
+- hosts: kvmhost
+  roles:
+    - setup_kvm_server
+    - create_kvm_network
+    
+- hosts: kvmguest
+  roles:
+#    - common
+#    - webservers
+

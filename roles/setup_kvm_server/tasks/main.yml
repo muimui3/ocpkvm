@@ -1,0 +1,26 @@
+---
+# tasks file for setup_kvm_server
+
+#Installing the Software
+
+- name: Upgrade all yum packages ansible.
+  yum:
+    name: "*"
+    state: latest
+- name: installing | installing the required software
+  become: yes
+  yum:
+    name: 
+      - libguestfs-tools
+      - libvirt
+      - qemu-kvm
+      - virt-manager
+      - virt-install
+      - xorg-x11-apps
+      - xauth
+      - virt-viewer
+      - libguestfs-xfs
+      - git  
+    state: present
+
+  notify: enable_service
