@@ -1,2 +1,5 @@
 ---
 # tasks file for create_helper_kvm
+
+- include: download_image.yml
+- include: create_kvm.yml
