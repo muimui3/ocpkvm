@@ -1,5 +1,5 @@
 # This can be downlaod from RedHat OpensShift 
-pullsecret: "GET IT FROM REDHAT"
+pullsecret:'GET YOUR OWN FROM https://cloud.redhat.com/openshift/install'
 
 
 base_domain: "os.fisc.lab"
@@ -94,6 +94,7 @@ kvm_vm_nics:
 
 
 kvm_timezone: "America/New_York"
+
 disk: vda
 
 helper:
@@ -122,25 +123,25 @@ bootstrap:
 
 
 masters:
-  - name: "ocp4-master-0"
+  - name: "control-plane-0"
     ipaddr: "{{ master_ip.0 }}"
     macaddr: "{{ hostvars['localhost']['master_mac_0']  }}"
-  - name: "ocp4-master-1"
+  - name: "control-plane-1"
     ipaddr: "{{ master_ip.1 }}"
     macaddr: "{{ hostvars['localhost']['master_mac_1']  }}"
-  - name: "ocp4-master-2"
+  - name: "control-plane-2"
     ipaddr: "{{ master_ip.2 }}"
     macaddr: "{{ hostvars['localhost']['master_mac_2'] }}"
 
 
 workers:
-  - name: "ocp4-worker-0"
+  - name: "compute-0"
     ipaddr: "{{ worker_ip.0 }}"
     macaddr: "{{ hostvars['localhost']['worker_mac_0'] }}"
-  - name: "ocp4-worker-1"
+  - name: "compute-1"
     ipaddr: "{{ worker_ip.1 }}"
     macaddr: "{{ hostvars['localhost']['worker_mac_1'] }}"
-  - name: "ocp4-worker-2"
+  - name: "compute-2"
     ipaddr: "{{ worker_ip.2 }}"
     macaddr: "{{ hostvars['localhost']['worker_mac_2'] }}"
 

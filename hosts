@@ -3,4 +3,7 @@
 127.0.0.1 ansible_connection=local
 
 
+[kvmguest]
+100.106.12.179  ansible_user=root  ansible_ssh_pass=passw0rd
+
 

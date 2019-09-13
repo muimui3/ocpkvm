@@ -3,7 +3,10 @@
 
 - name: delete tmp folder
   shell: "rm -rf /tmp/*"
-    
+
+
+- name: delete knows_host
+  shell: "rm -rf /root/.ssh/known_hosts"
     
 
 - name: delete kvm network

@@ -1,0 +1,30 @@
+---
+# tasks file for setup_openshift4
+
+- name: Change file ownership, group and permissions
+  file:
+    path: /opt/ocp4
+    state: directory
+
+
+
+
+- name: Write out install-config file
+  command : ssh-keygen -q -t rsa -b 4096  -f /opt/ocp4/ocp4_rsa -C noname -N ""
+  args:
+    creates: /opt/ocp4/ocp4_rsa
+
+
+- name: slurp the pubkey for passing to other servers as authorized_key
+  slurp:
+    src: /opt/ocp4/ocp4_rsa.pub
+  register: new_rsa_key
+  
+
+- name: Write out install-config file
+  template:
+    src: "{{ role_path }}/templates/install-config.yaml.j2"
+    dest: /opt/ocp4/install-config.yaml
+
+- name: Run openshift-install command
+  command: openshift-install create ignition-configs --dir=opt/ocp4/install-config.yaml

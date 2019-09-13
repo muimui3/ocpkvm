@@ -3,10 +3,10 @@
 #    - setup_kvm_server
 #    - create_kvm_network
 #    - create_helper_kvm
-     - create_ocp4_kvms
+#    - create_ocp4_kvms
     
 - hosts: kvmguest
   roles:
-#    - common
-#    - webservers
+#    - update_helper_kvm
+    - setup_openshift4
 

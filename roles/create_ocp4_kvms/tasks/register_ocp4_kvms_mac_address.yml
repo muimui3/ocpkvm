@@ -1,5 +1,107 @@
 
 
 
-#- name: get mac address for master0 node
-#  command: 'virsh dumpxml {{ocp4-worker-0}} | grep "mac address" | awk -F\' '{ print $2}''
+- name: get MAC adres new VM
+  shell: >
+          virsh domiflist ocp4-bootstrap | grep -o -E "([0-9a-f]{2}:){5}([0-9a-f]{2})"
+  register: mac_address
+  
+
+- name: Store Mac address
+  set_fact:
+     bootstrap_mac: "{{ mac_address.stdout }}"
+
+
+
+
+- debug:
+     msg: "{{ bootstrap_mac }}"
+
+
+##############################
+
+- name: get MAC adres new VM
+  shell: >
+          virsh domiflist ocp4-master0 | grep -o -E "([0-9a-f]{2}:){5}([0-9a-f]{2})"
+  register: mac_address
+  
+
+- name: Store Mac address
+  set_fact:
+     master_mac_0: "{{ mac_address.stdout }}"
+
+- name: get MAC adres new VM
+  shell: >
+          virsh domiflist ocp4-master1 | grep -o -E "([0-9a-f]{2}:){5}([0-9a-f]{2})"
+  register: mac_address
+  
+
+- name: Store Mac address
+  set_fact:
+     master_mac_1: "{{ mac_address.stdout }}"
+
+- name: get MAC adres new VM
+  shell: >
+          virsh domiflist ocp4-master2 | grep -o -E "([0-9a-f]{2}:){5}([0-9a-f]{2})"
+  register: mac_address
+  
+
+- name: Store Mac address
+  set_fact:
+     master_mac_2: "{{ mac_address.stdout }}"
+
+
+- debug:
+     msg: "{{ master_mac_0 }} {{ master_mac_1 }} {{ master_mac_2 }}"
+
+
+###########################################################
+
+- name: get MAC adres new VM
+  shell: >
+          virsh domiflist ocp4-worker0 | grep -o -E "([0-9a-f]{2}:){5}([0-9a-f]{2})"
+  register: mac_address
+  
+
+- name: Store Mac address
+  set_fact:
+     worker_mac_0: "{{ mac_address.stdout }}"
+
+- name: get MAC adres new VM
+  shell: >
+          virsh domiflist ocp4-worker1 | grep -o -E "([0-9a-f]{2}:){5}([0-9a-f]{2})"
+  register: mac_address
+  
+
+- name: Store Mac address
+  set_fact:
+     worker_mac_1: "{{ mac_address.stdout }}"
+
+- name: get MAC adres new VM
+  shell: >
+          virsh domiflist ocp4-worker2 | grep -o -E "([0-9a-f]{2}:){5}([0-9a-f]{2})"
+  register: mac_address
+  
+
+- name: Store Mac address
+  set_fact:
+     worker_mac_2: "{{ mac_address.stdout }}"
+
+
+- debug:
+     msg: "{{ worker_mac_0 }} {{ worker_mac_1 }} {{ worker_mac_2 }}"
+
+
+
+- name: list only running VMs
+  virt:
+    command: list_vms
+    state: running
+  register: running_vms
+
+- debug:
+     msg: "{{ running_vms }}"
+
+
+- pause:
+    seconds: 30
