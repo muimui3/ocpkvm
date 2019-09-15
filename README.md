@@ -1,4 +1,4 @@
-etting OCP 4.1 using KVM
+# Setting OCP 4.1 using KVM
 
 This Guide will get you up and running using KVM `libvirt`. This setup should work for both RedHat or Centos OS 7.X. The ordered bare-metal IBM Cloud will act as KVM Host.
 
@@ -66,8 +66,16 @@ Edit the [hosts](./hosts) file kvmguest section to match helper node information
 Run the playbook to setup your helper node (using `-e staticips=true` to flag to ansible that you won't be installing dhcp/tftp)
 
 ```
-ansible-playbook -e @vars-static.yaml -e staticips=true tasks/main.yml
+ansible-playbook -vvv -e @vars.yaml  play.yaml
+
 ```
+### Playbook fail for some reason 
+If the ansible scripts fail you can execute the following script to clean the environment but do it your own risk
+
+```
+ansible-playbook -vvv -e @vars.yaml  clean.yaml
+```
+
 
 After it is done, ssh into the helper node to run the following command to get info about your environment and some install help
 
@@ -159,4 +167,5 @@ iptables -t nat -I PREROUTING -p tcp --dport 443 -j DNAT --to <HELPER_NODE_IP>:4
 > Add following lines to your /etc/hosts files on from where you plan to access the Opensshift URL 
 
 > <HELPER_NODE_IP> console-openshift-console.apps.<base_domain_prefix>.<base_domain>  oauth-openshift.apps.<base_domain_prefix>.<base_domain>
+
 
