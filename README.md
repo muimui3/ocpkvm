@@ -7,29 +7,22 @@ All the OpenShift Guest VM will be deployed using the following ansible scripts.
 > **NOTE**  Openshift 4.1 has a complicated installation.  Use the following URL to access the official RedHat documentation on installing Openshift 4.1 on VMware:
 https://docs.openshift.com/container-platform/4.1/installing/installing_vsphere/installing-vsphere.html 
 
-The information in this document is written in a condensed format. For a more verbose explanation please refer to https://docs.openshift.com/container-platform/4.1/installing/installing_vsphere/installing-vsphere.html
+> The information in this document is written in a condensed format. For a more verbose explanation please refer to https://docs.openshift.com/container-platform/4.1/installing/installing_vsphere/installing-vsphere.html
  
-The automation and manual steps can all be pointed back to the above URL. Before you begin, understanding your IP address is very important.  The IP addresses in the following table were obtained from IC4G.  They are listed here for illustration purpose only. Besides setting up your ESXi and vCenter server, you also need to order a minimum of 16 portable IP address which will be used to assign to the VM’s. 
+> The automation and manual steps can all be pointed back to the above URL. Before you begin, understanding your IP address is very important.  The IP addresses in the following table were obtained from IC4G.  They are listed here for illustration purpose only. Besides setting up your ESXi and vCenter server, you also need to order a minimum of 16 portable IP address which will be used to assign to the VM’s. 
 
-Each VM node takes up one IP address.  The recommendation minimum of 16 portable IP addresses is determined by:
-1 helper node + 1 boot node + 3 control-plane nodes + 3 worker nodes = 8 nodes
-IC4G reserves 4 IP addresses out of every portable IP subnet.  Therefore 8 + 4 = 12.
-The extra four IP addresses are for having a cushion.  This installation provisioned the vCenter on the same portable IP subnet, thus a total of 9 IP addresses are used.
+> Each VM node takes up one IP address.  The recommendation minimum of 16 portable IP addresses is determined by:
+> 1 helper node + 1 boot node + 3 control-plane nodes + 3 worker nodes = 8 nodes
+> IC4G reserves 4 IP addresses out of every portable IP subnet.  Therefore 8 + 4 = 12.
+> The extra four IP addresses are for having a cushion.  This installation provisioned the vCenter on the same portable IP subnet, thus a total of 9 IP addresses are used.
 
 ## 	Architecture Diagram 
 coming soon!!!!!!!!!!!!!!!!!
 
 ## Hardware requirements
 
-Node Name	   vCPU	Mem	    HDD	    Role
-Helper Node	    4	8 GB	120 GB	DNS/AD/Proxy/DHCP/Cluster Installer
-Bootstrap Node	4	8 GB	120 GB	OCP Bootstrap node
-master0 Node	4	8 GB	120 GB	OCP Management node
-master1 Node	4	8 GB	120 GB	OCP Management node
-master2 Node	4	8 GB	120 GB	OCP Management node
-worker0 Node	4	8 GB	120 GB	OCP Worker Node
-woerker1 Node	4	8 GB	120 GB	OCP Worker Node
-worker2 Node	4	8 GB	120 GB	OCP Worker Node
+![hardware](images/hardware.png)
+
 
 
 ## Setup KVM Host
