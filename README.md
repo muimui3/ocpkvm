@@ -1,4 +1,4 @@
-# Setting OCP 4.1 using KVM
+etting OCP 4.1 using KVM
 
 This Guide will get you up and running using KVM `libvirt`. This setup should work for both RedHat or Centos OS 7.X. The ordered bare-metal IBM Cloud will act as KVM Host.
 
@@ -58,7 +58,7 @@ cd /opt/ocpkvm
 ```
 
 Edit the [vars.yaml](./vars.yaml) file with the IP addresss that will be assigned to the masters/workers/boostrap. The IP addresses need to be right since they will be used to create your OpenShift servers. 
-
+Edit the [hosts](./hosts) file kvmguest section to match helper node information. This should be similar to vars.yaml file 
 ## Run the playbook
 
 Run the playbook to setup your helper node (using `-e staticips=true` to flag to ansible that you won't be installing dhcp/tftp)
@@ -133,4 +133,26 @@ finish up the install process
 ```
 openshift-install wait-for install-complete 
 ```
+Following message should be shown 
+```
+INFO Waiting up to 30m0s for the cluster at https://api.test.os.fisc.lab:6443 to initialize... 
+INFO Waiting up to 10m0s for the openshift-console route to be created... 
+INFO Install complete!                            
+INFO To access the cluster as the system:admin user when using 'oc', run 'export KUBECONFIG=/opt/ocp4/auth/kubeconfig' 
+INFO Access the OpenShift web-console here: https://console-openshift-console.apps.test.os.fisc.lab 
+INFO Login to the console with user: kubeadmin, password: ###-????-@@@@-**** 
+```
+
+
+## Update IP tables on KVM Host to access OpenShift URL
+
+On KVM Host run the following commands
+
+```
+iptables -I FORWARD -o openshift4 -d  <HELPER_NODE_IP> -j ACCEPT
+iptables -t nat -I PREROUTING -p tcp --dport 443 -j DNAT --to <HELPER_NODE_IP>:443
+```
+> **HINT** change the <HELPER_NODE_IP> address in above command to match your Helper node IP address
+> Add following lines to your /etc/hosts files on from where you plan to access the Opensshift URL 
+> <HELPER_NODE_IP> console-openshift-console.apps.<base_domain_prefix>.<base_domain>  oauth-openshift.apps.<base_domain_prefix>.<base_domain>
 
