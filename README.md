@@ -57,8 +57,10 @@ git clone https://github.com/fctoibm/ocpkvm.git
 cd /opt/ocpkvm
 ```
 
-Edit the [vars.yaml](./vars.yaml) file with the IP addresss that will be assigned to the masters/workers/boostrap. The IP addresses need to be right since they will be used to create your OpenShift servers. 
+Edit the [vars.yaml](./vars.yaml) file with the IP addresss that will be assigned to the masters/workers/boostrap. The IP addresses need to be right since they will be used to create your OpenShift servers.
+
 Edit the [hosts](./hosts) file kvmguest section to match helper node information. This should be similar to vars.yaml file 
+
 ## Run the playbook
 
 Run the playbook to setup your helper node (using `-e staticips=true` to flag to ansible that you won't be installing dhcp/tftp)
@@ -153,6 +155,8 @@ iptables -I FORWARD -o openshift4 -d  <HELPER_NODE_IP> -j ACCEPT
 iptables -t nat -I PREROUTING -p tcp --dport 443 -j DNAT --to <HELPER_NODE_IP>:443
 ```
 > **HINT** change the <HELPER_NODE_IP> address in above command to match your Helper node IP address
+
 > Add following lines to your /etc/hosts files on from where you plan to access the Opensshift URL 
+
 > <HELPER_NODE_IP> console-openshift-console.apps.<base_domain_prefix>.<base_domain>  oauth-openshift.apps.<base_domain_prefix>.<base_domain>
 
