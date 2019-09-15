@@ -1,6 +1,5 @@
 # This can be downlaod from RedHat OpensShift 
-pullsecret:'GET YOUR OWN FROM https://cloud.redhat.com/openshift/install'
-
+pullsecret: 'GET YOUR OWN FROM https://cloud.redhat.com/openshift/install'
 
 base_domain: "os.fisc.lab"
 base_domain_prefix: "test"
@@ -39,15 +38,15 @@ bootstrap_ip: "100.106.12.181"
 
 master_ip:
    0: "100.106.12.182"
-   1: "100.106.12.182"
-   2: "100.106.12.183"
+   1: "100.106.12.183"
+   2: "100.106.12.184"
 
 
 # Worker IP address
 worker_ip:
-   0: "100.106.12.184"
-   1: "100.106.12.185"
-   2: "100.106.12.186"
+   0: "100.106.12.185"
+   1: "100.106.12.186"
+   2: "100.106.12.187"
 
 
 
@@ -117,31 +116,31 @@ dhcp:
   netmaskid: "{{ portable.netmask }}"
 
 bootstrap:
-  name: "bootstrap-0"
+  name: "bootstrap"
   ipaddr: "{{ bootstrap_ip }}"
   macaddr: "{{ hostvars['localhost']['bootstrap_mac']  }}"
 
 
 masters:
-  - name: "control-plane-0"
+  - name: "master0"
     ipaddr: "{{ master_ip.0 }}"
     macaddr: "{{ hostvars['localhost']['master_mac_0']  }}"
-  - name: "control-plane-1"
+  - name: "master1"
     ipaddr: "{{ master_ip.1 }}"
     macaddr: "{{ hostvars['localhost']['master_mac_1']  }}"
-  - name: "control-plane-2"
+  - name: "master2"
     ipaddr: "{{ master_ip.2 }}"
     macaddr: "{{ hostvars['localhost']['master_mac_2'] }}"
 
 
 workers:
-  - name: "compute-0"
+  - name: "worker0"
     ipaddr: "{{ worker_ip.0 }}"
     macaddr: "{{ hostvars['localhost']['worker_mac_0'] }}"
-  - name: "compute-1"
+  - name: "worker1"
     ipaddr: "{{ worker_ip.1 }}"
     macaddr: "{{ hostvars['localhost']['worker_mac_1'] }}"
-  - name: "compute-2"
+  - name: "worker2"
     ipaddr: "{{ worker_ip.2 }}"
     macaddr: "{{ hostvars['localhost']['worker_mac_2'] }}"
 

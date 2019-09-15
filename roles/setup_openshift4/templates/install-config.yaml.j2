@@ -3,17 +3,17 @@ baseDomain: "{{ base_domain }}"
 compute:
 - hyperthreading: Enabled
   name: worker
-  replicas: 0
+  replicas: 3
 controlPlane:
   hyperthreading: Enabled
   name: master
   replicas: 3
 metadata:
-  name: "{{base_domain_prefix }}"
+  name: {{ base_domain_prefix }}
 networking:
   clusterNetworks:
-  - cidr: "{{ portable.subnet }} "
-    hostPrefix: "{{ portable.prefix }}"
+  - cidr: 10.254.0.0/16
+    hostPrefix: 24
   networkType: OpenShiftSDN
   serviceNetwork:
   - 172.30.0.0/16

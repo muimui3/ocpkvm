@@ -1,6 +1,6 @@
 <domain type="kvm">
   <name>ocp4-bootstrap</name>
-  <uuid>f831d630-06c6-493f-9d8f-4f008f73abd1</uuid>
+  <uuid>d3e2b87e-8a8c-4323-ab94-393f7aa520ef</uuid>
   <memory>8388608</memory>
   <currentMemory>8388608</currentMemory>
   <vcpu>4</vcpu>
@@ -44,7 +44,7 @@
     </controller>
     <interface type="network">
       <source network="openshift4"/>
-      <mac address="52:54:00:0a:12:e7"/>
+      <mac address="52:54:00:95:ca:93"/>
       <model type="virtio"/>
     </interface>
     <input type="tablet" bus="usb"/>

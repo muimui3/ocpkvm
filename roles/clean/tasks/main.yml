@@ -16,6 +16,12 @@
 
 - name: undefine vm
   virt:
+    command: shutdown
+    name: "{{ kvm_vm_hostname }}"
+  ignore_errors: true
+
+- name: undefine vm
+  virt:
     command: destroy
     name: "{{ kvm_vm_hostname }}"
   ignore_errors: true
@@ -27,7 +33,47 @@
     name: "{{ kvm_vm_hostname }}"
   ignore_errors: true
 
+- name: undefine vm
+  virt:
+    command: destroy
+    name: ocp4-bootstrap
+  ignore_errors: true
 
+
+- name: undefine vm
+  virt:
+    command: destroy
+    name: ocp4-master0
+  ignore_errors: true
+
+- name: undefine vm
+  virt:
+    command: destroy
+    name: ocp4-master1
+  ignore_errors: true
+
+- name: undefine vm
+  virt:
+    command: destroy
+    name: ocp4-master2
+  ignore_errors: true
+
+- name: undefine vm
+  virt:
+    command: destroy
+    name: ocp4-worker0
+  ignore_errors: true
+- name: undefine vm
+  virt:
+    command: destroy
+    name: ocp4-worker1
+  ignore_errors: true
+
+- name: undefine vm
+  virt:
+    command: destroy
+    name: ocp4-worker2
+  ignore_errors: true
 
 - name: undefine vm
   virt:

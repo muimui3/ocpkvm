@@ -26,5 +26,24 @@
     src: "{{ role_path }}/templates/install-config.yaml.j2"
     dest: /opt/ocp4/install-config.yaml
 
+- name: copy install-config.yaml file for forensic
+  copy:
+    src: /opt/ocp4/install-config.yaml
+    dest: /opt/ocp4/install-config.yaml.bak
+    remote_src: yes
+
+
 - name: Run openshift-install command
-  command: openshift-install create ignition-configs --dir=opt/ocp4/install-config.yaml
+  command: chdir=/opt/ocp4 openshift-install create ignition-configs --dir=/opt/ocp4
+
+
+- name: copy the ignition files to http server location
+  copy:
+    src: /opt/ocp4/{{item}} 
+    dest: /var/www/html/ignition/
+    remote_src: yes
+  with_items: 
+    ['master.ign', 'bootstrap.ign', 'worker.ign']
+
+- name: restocon command on http server
+  command: restorecon -vR /var/www/html/
