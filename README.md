@@ -67,7 +67,7 @@ Edit the [hosts](./hosts) file kvmguest section to match helper node information
 
 ## Run the playbook
 
-Run the playbook to setup your helper node (using `-e staticips=true` to flag to ansible that you won't be installing dhcp/tftp)
+Run the playbook to setup your helper node.  You should still be in /opt/ocpkvm.
 
 ```
 ansible-playbook -e @vars.yaml  play.yaml
