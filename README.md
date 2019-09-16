@@ -39,15 +39,13 @@ sudo yum install python-pip gcc make openssl-devel python-devel
 
 If you want to install Gnome desktop to setup VNC (CentOS)
 ```
+## For CentOS enter the next command to install Gnome
 yum groupinstall "GNOME Desktop" "Graphical Administration Tools"
+## For RHEL enter the next command to install Gnome
+yum groupinstall "Server with GUI"
 yum install tigervnc*
 ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target
 reboot
-```
-If you want to install Gnome desktop to setup VNC (RHEL)
-```
-yum groupinstall "Server with GUI"
-
 ```
 Log back in to setup 
 
