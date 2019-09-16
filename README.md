@@ -30,7 +30,8 @@ Before we can use ansible scripts, we have to prep the host with installing ansi
 
 ```
 sudo yum update
-sudo yum install ansible
+sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+sudo yum -y install ansible
 sudo yum install git
 sudo yum install python-pip gcc make openssl-devel python-devel
 ```
