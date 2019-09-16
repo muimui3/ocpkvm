@@ -66,14 +66,14 @@ Edit the [hosts](./hosts) file kvmguest section to match helper node information
 Run the playbook to setup your helper node (using `-e staticips=true` to flag to ansible that you won't be installing dhcp/tftp)
 
 ```
-ansible-playbook -vvv -e @vars.yaml  play.yaml
+ansible-playbook -e @vars.yaml  play.yaml
 
 ```
 ### Playbook fail for some reason 
 If the ansible scripts fail you can execute the following script to clean the environment but do it your own risk
 
 ```
-ansible-playbook -vvv -e @vars.yaml  clean.yaml
+ansible-playbook -e @vars.yaml  clean.yaml
 ```
 
 
