@@ -99,9 +99,13 @@ Boot/install the VMs in the following order
 * Masters
 * Workers
 
+Once you see the "login" prompt on the VM and the IP address assignment, you can move to boot up the next VM.  When the last worker nodes finished booting, you can continue.
+
 ## Wait for install
 
-The boostrap VM actually does the install for you; you can track it with the following command by ssh into helper node guest KVM.
+The boostrap VM actually does the install for you; you can track it with the following command by ssh into helper node guest KVM ??
+
+ssh to the helper node
 
 ```
 cd /opt/ocp4
