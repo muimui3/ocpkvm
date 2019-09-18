@@ -105,7 +105,7 @@ Once you see the "login" prompt on the VM and the IP address assignment, you can
 
 The boostrap VM actually does the install for you; you can track it with the following command by ssh into helper node guest KVM ??
 
-ssh to the helper node
+ssh to the helper node (--lfl)
 
 ```
 cd /opt/ocp4
@@ -124,7 +124,7 @@ DEBUG Bootstrap status: complete
 INFO It is now safe to remove the bootstrap resources
 ```
 
-...you can continue....at this point you can delete the bootstrap server.
+...you can continue....at this point you can delete the bootstrap server, or shut it down if you don't want to delete it. (--lfl)
 
 ## Finish Install
 
