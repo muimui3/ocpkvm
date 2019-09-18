@@ -128,7 +128,7 @@ First, ssh into helper node guest KVM
 
 ```
 cd /opt/ocp4
-export KUBECONFIG=/root/ocp4/auth/kubeconfig
+export KUBECONFIG=/opt/ocp4/auth/kubeconfig
 ```
 
 Set up storage for you registry (to use PVs follow [this](https://docs.openshift.com/container-platform/4.1/installing/installing_bare_metal/installing-bare-metal.html#registry-configuring-storage-baremetal_installing-bare-metal)
