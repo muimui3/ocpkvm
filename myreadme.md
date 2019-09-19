@@ -145,8 +145,7 @@ height="2.5566043307086614in"}
 
 The PXE Boot Mneu will be displayed:
 
-![pxe](media/image5.png){width="5.833333333333333in"
-height="3.7923556430446195in"}
+![pxe](images/pxe.png)
 
 If the VM is the bootstrap VM, select option 1) Install Bootstrap Mode.
 If the VM is the master-x VM, select option 2) Install Master Node and
