@@ -1,4 +1,34 @@
-Setting OCP 4.1 using KVM
+---
+title: '[]{#setting-ocp-4.1-using-kvm .anchor}OPENSHIFT 4.1 on KVM in IC4G'
+---
+
+Table of Contents {#table-of-contents .TOCHeading}
+=================
+
+[Setting OCP 4.1 using KVM 1](#setting-ocp-4.1-using-kvm-1)
+
+[Architecture Diagram 1](#architecture-diagram)
+
+[Hardware requirements 1](#hardware-requirements)
+
+[Setup KVM Host 1](#setup-kvm-host)
+
+[Prepare the Host KVM 2](#prepare-the-host-kvm)
+
+[Run the playbook 2](#run-the-playbook)
+
+[Playbook fail for some reason 2](#playbook-fail-for-some-reason)
+
+[Install VMs 3](#install-vms)
+
+[Wait for install 3](#wait-for-install)
+
+[Finish Install 4](#finish-install)
+
+[Update IP tables on KVM Host to access OpenShift URL
+4](#update-ip-tables-on-kvm-host-to-access-openshift-url)
+
+Setting OCP 4.1 using KVM {#setting-ocp-4.1-using-kvm-1}
 =========================
 
 This Guide will get you up and running using KVM `libvirt`. This setup
