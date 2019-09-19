@@ -1,33 +1,3 @@
----
-title: '[]{#setting-ocp-4.1-using-kvm .anchor}OPENSHIFT 4.1 on KVM in IC4G'
----
-
-Table of Contents {#table-of-contents .TOCHeading}
-=================
-
-[Setting OCP 4.1 using KVM 1](#setting-ocp-4.1-using-kvm-1)
-
-[Architecture Diagram 1](#architecture-diagram)
-
-[Hardware requirements 1](#hardware-requirements)
-
-[Setup KVM Host 1](#setup-kvm-host)
-
-[Prepare the Host KVM 2](#prepare-the-host-kvm)
-
-[Run the playbook 2](#run-the-playbook)
-
-[Playbook fail for some reason 2](#playbook-fail-for-some-reason)
-
-[Install VMs 3](#install-vms)
-
-[Wait for install 3](#wait-for-install)
-
-[Finish Install 4](#finish-install)
-
-[Update IP tables on KVM Host to access OpenShift URL
-4](#update-ip-tables-on-kvm-host-to-access-openshift-url)
-
 Setting OCP 4.1 using KVM {#setting-ocp-4.1-using-kvm-1}
 =========================
 
@@ -61,8 +31,6 @@ Hardware requirements
 ![hardware](media/image1.png){width="5.833333333333333in"
 height="2.0421237970253716in"}
 
-hardware
-
 Setup KVM Host
 --------------
 
@@ -92,6 +60,8 @@ Log back in to setup
 Prepare the Host KVM
 --------------------
 
+Login to the Host KVM as root.
+
     cd /opt
     git clone https://github.com/fctoibm/ocpkvm.git
     cd /opt/ocpkvm
@@ -103,14 +73,14 @@ right since they will be used to create your OpenShift servers.
 Edit the [hosts](./hosts) file kvmguest section to match helper node
 information. This should be similar to vars.yaml file
 
-Run the playbook
-----------------
+Run the ansible playbook
+------------------------
 
 Run the playbook to setup your helper node
 
     ansible-playbook -e @vars.yaml  play.yaml
 
-### Playbook fail for some reason
+### If ansible Playbook fail for some reason
 
 If the ansible scripts fail you can execute the following script to
 clean the environment but do it your own risk
@@ -122,24 +92,74 @@ to get info about your environment and some install help
 
     /usr/local/bin/helpernodecheck
 
-Install VMs
------------
+Install RHCOS on the VMs
+------------------------
 
-Launch `virt-manager`, and boot the VMs into the boot menu; and select
-PXE. You'll be presented with the following picture.
+From this point forward, all the work is done on the Helper Node.
 
-![pxe](media/image2.png){width="5.833333333333333in"
+At this point the bootstrap VM, the master VMs and the workers VMs are
+created, but OS has yet to be installed on the VMs. All the VMs except
+for the Helper Node should be in shutdown status.
+
+This section provide instruction on installing the OS to each VM.
+
+To ensure that the IP address is assigned to each VM as defined in the
+vars.yaml file, it is important that the VM is started and the OS
+installed in the following order:
+
+1.  Bootstrap
+
+2.  Master 0
+
+3.  Master 1
+
+4.  Master 2
+
+5.  Worker 0
+
+6.  Worker 1
+
+7.  Worker 2
+
+Logon to the Helper Node. Launch `virt``-manager`
+
+![](media/image2.png){width="4.479460848643919in"
+height="4.037736220472441in"}
+
+Each of the VM needs to be PXE boot (Pre-Boot Execution Environment).
+The result is an IP address will be assigned to the VM and the OS will
+be installed.
+
+Follow this steps to get to the PXE menu:
+
+Since the bootstrap VM is the first VM to be started, right click on
+ocp4-boostrap. Select Open. The ocp4-bootstrap console is displayed
+
+![](media/image3.png){width="4.490566491688539in"
+height="1.7544870953630796in"}
+
+Select the play button. The message "Press ESC for boot menu" will be
+displayed. Promptly press the ESC key. The message "Select boot device:"
+will be displayed. Select the choice "iPXE"
+
+![](media/image4.png){width="4.436376859142607in"
+height="2.5566043307086614in"}
+
+The PXE Boot Mneu will be displayed:
+
+![pxe](media/image5.png){width="5.833333333333333in"
 height="3.7923556430446195in"}
 
-pxe
+If the VM is the bootstrap VM, select option 1) Install Bootstrap Mode.
+If the VM is the master-x VM, select option 2) Install Master Node and
+if the VM is the worker-x VM, select option 3) Install Worker Node.
 
-Boot/install the VMs in the following order
+Wait for the PXE boot to complete before moving on to start the next VM.
+When the PXE boot is completed, an IP address is assigned to the VM and
+the login prompt will be displayed similar to the following screen
+capture. Ignore the error messages.
 
--   Bootstrap
-
--   Masters
-
--   Workers
+![](media/image6.png){width="6.5in" height="2.245138888888889in"}
 
 Wait for install
 ----------------
