@@ -28,7 +28,7 @@ coming soon!!!!!!!!!!!!!!!!!
 Hardware requirements
 ---------------------
 
-![hardware](media/image1.png)
+![hardware](images/hardware.png)
 
 Setup KVM Host
 --------------
