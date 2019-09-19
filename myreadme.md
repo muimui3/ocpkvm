@@ -126,8 +126,7 @@ Logon to the Helper Node. Launch `virt``-manager`
 height="4.037736220472441in"}
 
 Each of the VM needs to be PXE boot (Pre-Boot Execution Environment).
-The result is an IP address will be assigned to the VM and the OS will
-be installed.
+The result is an IP address assigned to the VM and the OS installed.
 
 Follow this steps to get to the PXE menu:
 
