@@ -113,7 +113,7 @@ installed in the following order:
 6.  Worker 1
 7.  Worker 2
 
-Logon to the helper node. Launch `virt``-manager`
+Logon to the helper node. Launch `virt-manager`
 
 ![virt-mgr](images/virt-mgr.png)
 
