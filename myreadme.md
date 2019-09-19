@@ -1,12 +1,11 @@
-Setting OCP 4.1 using KVM {#setting-ocp-4.1-using-kvm-1}
+Setting OCP 4.1 using KVM 
 =========================
 
 This Guide will get you up and running using KVM `libvirt`. This setup
 should work for both RedHat or Centos OS 7.X. The ordered bare-metal IBM
 Cloud will act as KVM Host.
 
-All the OpenShift Guest VM will be deployed using the following ansible
-scripts.
+All the OpenShift Guest VM will be deployed using ansible scripts.
 
 > **NOTE:**
 >
@@ -28,8 +27,7 @@ coming soon!!!!!!!!!!!!!!!!!
 Hardware requirements
 ---------------------
 
-![hardware](media/image1.png){width="5.833333333333333in"
-height="2.0421237970253716in"}
+![hardware](images/hardware.png)
 
 Setup KVM Host
 --------------
@@ -108,23 +106,16 @@ vars.yaml file, it is important that the VM is started and the OS
 installed in the following order:
 
 1.  Bootstrap
-
 2.  Master 0
-
 3.  Master 1
-
 4.  Master 2
-
 5.  Worker 0
-
 6.  Worker 1
-
 7.  Worker 2
 
 Logon to the helper node. Launch `virt``-manager`
 
-![](media/image2.png){width="4.479460848643919in"
-height="4.037736220472441in"}
+![virt-mgr](images/virt-mgr.png)
 
 Each of the VM needs to be PXE boot (Pre-Boot Execution Environment).
 The result is an IP address assigned to the VM and the OS installed.
@@ -134,20 +125,17 @@ Follow these steps to get to the PXE menu:
 Since the bootstrap VM is the first VM to be started, right click on
 ocp4-boostrap. Select Open. The ocp4-bootstrap console is displayed
 
-![](media/image3.png){width="4.490566491688539in"
-height="1.7544870953630796in"}
+![console](images/vm-console.png)
 
 Select the play button. The message "Press ESC for boot menu" will be
 displayed. Promptly press the ESC key. The message "Select boot device:"
 will be displayed. Select option "iPXE"
 
-![](media/image4.png){width="4.436376859142607in"
-height="2.5566043307086614in"}
+![boot-menu](images/boot-menu.png)
 
 The PXE Boot Mneu will be displayed:
 
-![pxe](media/image5.png){width="5.833333333333333in"
-height="3.7923556430446195in"}
+![pxe](images/pxe.png)
 
 If the VM is the bootstrap VM, select option 1) Install Bootstrap Mode.
 If the VM is the master-x VM, select option 2) Install Master Node and
@@ -158,7 +146,7 @@ When the PXE boot is completed, an IP address is assigned to the VM and
 the login prompt will be displayed like the following screen capture.
 Ignore the error messages.
 
-![](media/image6.png){width="6.5in" height="2.245138888888889in"}
+![compl-msg](images/install-compl-msg.png)
 
 Wait for the install to be completed on all VMs
 -----------------------------------------------
@@ -226,10 +214,10 @@ On KVM Host run the following commands:
     iptables -I FORWARD -o openshift4 -d  <HELPER_NODE_IP> -j ACCEPT
     iptables -t nat -I PREROUTING -p tcp --dport 443 -j DNAT --to <HELPER_NODE_IP>:443
 
-> **HINT** change the address in above command to match your Helper node
+> **HINT** change the <HELPER_NODE_IP> address in above command to the helper node
 > IP address
 >
 > Add following lines to your /etc/hosts files on from where you plan to
 > access the Opensshift URL
 >
-> console-openshift-console.apps.. oauth-openshift.apps..
+> <HOST_KVM_IP> console-openshift-console.apps.<base_domain_prefix>.<base_domain>  oauth-openshift.apps.<base_domain_prefix>.<base_domain>
