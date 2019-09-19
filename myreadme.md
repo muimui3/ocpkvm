@@ -1,4 +1,4 @@
-Setting OCP 4.1 using KVM
+Setting OCP 4.1 using KVM {#setting-ocp-4.1-using-kvm-1}
 =========================
 
 This Guide will get you up and running using KVM `libvirt`. This setup
@@ -28,7 +28,8 @@ coming soon!!!!!!!!!!!!!!!!!
 Hardware requirements
 ---------------------
 
-![hardware](images/hardware.png)
+![hardware](media/image1.png){width="5.833333333333333in"
+height="2.0421237970253716in"}
 
 Setup KVM Host
 --------------
@@ -75,30 +76,30 @@ information. This should be similar to vars.yaml file
 Run the ansible playbook
 ------------------------
 
-Run the playbook to setup your helper node
+Run the playbook to setup the helper node
 
     ansible-playbook -e @vars.yaml  play.yaml
 
-### If ansible Playbook fail for some reason
+### If ansible Playbook fail
 
-If the ansible scripts fail you can execute the following script to
-clean the environment but do it your own risk
+If the ansible scripts fail, execute the following script to clean the
+environment:
 
     ansible-playbook -e @vars.yaml  clean.yaml
 
-After it is done, ssh into the helper node to run the following command
-to get info about your environment and some install help
+After it is done, ssh into the helper node, and run the following
+command to get info about the environment and some installation help:
 
     /usr/local/bin/helpernodecheck
 
 Install RHCOS on the VMs
 ------------------------
 
-From this point forward, all the work is done on the Helper Node.
+From this point forward, all work is done on the helper node.
 
 At this point the bootstrap VM, the master VMs and the workers VMs are
 created, but OS has yet to be installed on the VMs. All the VMs except
-for the Helper Node should be in shutdown status.
+for the helper node are in shutdown status.
 
 This section provide instruction on installing the OS to each VM.
 
@@ -120,7 +121,7 @@ installed in the following order:
 
 7.  Worker 2
 
-Logon to the Helper Node. Launch `virt``-manager`
+Logon to the helper node. Launch `virt``-manager`
 
 ![](media/image2.png){width="4.479460848643919in"
 height="4.037736220472441in"}
@@ -128,7 +129,7 @@ height="4.037736220472441in"}
 Each of the VM needs to be PXE boot (Pre-Boot Execution Environment).
 The result is an IP address assigned to the VM and the OS installed.
 
-Follow this steps to get to the PXE menu:
+Follow these steps to get to the PXE menu:
 
 Since the bootstrap VM is the first VM to be started, right click on
 ocp4-boostrap. Select Open. The ocp4-bootstrap console is displayed
@@ -138,14 +139,15 @@ height="1.7544870953630796in"}
 
 Select the play button. The message "Press ESC for boot menu" will be
 displayed. Promptly press the ESC key. The message "Select boot device:"
-will be displayed. Select the choice "iPXE"
+will be displayed. Select option "iPXE"
 
 ![](media/image4.png){width="4.436376859142607in"
 height="2.5566043307086614in"}
 
 The PXE Boot Mneu will be displayed:
 
-![pxe](images/pxe.png)
+![pxe](media/image5.png){width="5.833333333333333in"
+height="3.7923556430446195in"}
 
 If the VM is the bootstrap VM, select option 1) Install Bootstrap Mode.
 If the VM is the master-x VM, select option 2) Install Master Node and
@@ -153,55 +155,59 @@ if the VM is the worker-x VM, select option 3) Install Worker Node.
 
 Wait for the PXE boot to complete before moving on to start the next VM.
 When the PXE boot is completed, an IP address is assigned to the VM and
-the login prompt will be displayed similar to the following screen
-capture. Ignore the error messages.
+the login prompt will be displayed like the following screen capture.
+Ignore the error messages.
 
 ![](media/image6.png){width="6.5in" height="2.245138888888889in"}
 
-Wait for install
-----------------
+Wait for the install to be completed on all VMs
+-----------------------------------------------
 
-The boostrap VM actually does the install for you; you can track it with
-the following command by ssh into helper node guest KVM.
+The bootstrap VM does the OS installation for all the VMs. Wait for the
+PXE boot to be completed on each VM. When the PXE boot is done on
+worker-2 node, ssh to the helper node. Execute the following command to
+check that the bootstrap node is finished with installation.
 
     cd /opt/ocp4
     openshift-install wait-for bootstrap-complete --log-level debug
 
-Once you see this message below...
+The following messages will be displayed when the bootstrap completes
+installation:
 
-    DEBUG OpenShift Installer v4.1.0-201905212232-dirty 
-    DEBUG Built from commit 71d8978039726046929729ad15302973e3da18ce 
-    INFO Waiting up to 30m0s for the Kubernetes API at https://api.ocp4.example.com:6443... 
-    INFO API v1.13.4+838b4fa up                       
-    INFO Waiting up to 30m0s for bootstrapping to complete... 
-    DEBUG Bootstrap status: complete                   
-    INFO It is now safe to remove the bootstrap resources
+`DEBUG OpenShift Installer v4.1.0-201905212232-dirty `\
+`DEBUG Built from commit 71d8978039726046929729ad15302973e3da18ce `\
+`INFO Waiting up to 30m``0s for the Kubernetes API at https://api.ocp4.example.com:6443... `\
+`INFO API v1.13.4+838b4fa up                       `\
+`INFO Waiting up to 30m0s for bootstrapping to complete... `\
+`DEBUG Bootstrap status: complete                   `\
+`INFO It is now safe to remo``ve the bootstrap resources`
 
-...you can continue....at this point you can delete the bootstrap
-server.
+When the above messages are displayed, then it is safe to shutdown and
+delete the bootstrap VM, and proceed to the next section.
 
-Finish Install
---------------
+Finish Installing OCP
+---------------------
 
-First, ssh into helper node guest KVM
+ssh to the helper node from the KVM host
 
     cd /opt/ocp4
     export KUBECONFIG=/opt/ocp4/auth/kubeconfig
 
-Set up storage for you registry (to use PVs follow
+Set up storage for the registry (to use PVs follow
 [this](https://docs.openshift.com/container-platform/4.1/installing/installing_bare_metal/installing-bare-metal.html#registry-configuring-storage-baremetal_installing-bare-metal)
 
     oc patch configs.imageregistry.operator.openshift.io cluster --type merge --patch '{"spec":{"storage":{"emptyDir":{}}}}'
 
-If you need to expose the registry, run this command
+If there is a need to expose the registry, run the following command
 
     oc patch configs.imageregistry.operator.openshift.io/cluster --type merge -p '{"spec":{"defaultRoute":true}}'
 
-finish up the install process
+Execute the next command to finish the install process:
 
     openshift-install wait-for install-complete 
 
-Following message should be shown
+When the installation is complete, messages similar to the following
+messages will be displayed:
 
     INFO Waiting up to 30m0s for the cluster at https://api.test.os.fisc.lab:6443 to initialize... 
     INFO Waiting up to 10m0s for the openshift-console route to be created... 
@@ -210,10 +216,12 @@ Following message should be shown
     INFO Access the OpenShift web-console here: https://console-openshift-console.apps.test.os.fisc.lab 
     INFO Login to the console with user: kubeadmin, password: ###-????-@@@@-**** 
 
+    Make note of the OpenShift web-console URL, login user id and password.
+
 Update IP tables on KVM Host to access OpenShift URL
 ----------------------------------------------------
 
-On KVM Host run the following commands
+On KVM Host run the following commands:
 
     iptables -I FORWARD -o openshift4 -d  <HELPER_NODE_IP> -j ACCEPT
     iptables -t nat -I PREROUTING -p tcp --dport 443 -j DNAT --to <HELPER_NODE_IP>:443
