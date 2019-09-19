@@ -194,8 +194,8 @@ Execute the next command to finish the install process:
 
     openshift-install wait-for install-complete 
 
-When the installation is complete, messages similar to the following
-messages will be displayed:
+When the installation is completed, messages similar to the following 
+will be displayed:
 
     INFO Waiting up to 30m0s for the cluster at https://api.test.os.fisc.lab:6443 to initialize... 
     INFO Waiting up to 10m0s for the openshift-console route to be created... 
