@@ -1,4 +1,4 @@
-Setting OCP 4.1 using KVM {#setting-ocp-4.1-using-kvm-1}
+Setting OCP 4.1 using KVM
 =========================
 
 This Guide will get you up and running using KVM `libvirt`. This setup
@@ -28,8 +28,7 @@ coming soon!!!!!!!!!!!!!!!!!
 Hardware requirements
 ---------------------
 
-![hardware](media/image1.png){width="5.833333333333333in"
-height="2.0421237970253716in"}
+![hardware](media/image1.png)
 
 Setup KVM Host
 --------------
